@@ -1,20 +1,20 @@
-const express = require("express");
-const bodyParser = require('body-parser');
+const express = require('express'),
+consign = require('consign'),
+bodyParser = require('body-parser');
 
-class AppController {
-  constructor() {
-    this.express = express();
-    this.middlewares();
-    this.routes();
-  }
+var app = express();
 
-  middlewares() {
-    this.express.use(bodyParser.urlencoded({ extended: true }));
-  }
 
-  routes() {
-    this.express.use(require("../app/routes/routes"));
-  }
-}
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-module.exports = new AppController().express;
+
+consign()
+	.include('app/routes')
+	.then('app/models')
+	.then('config/database.js')
+	.then('app/controllers')
+	.into(app);
+
+
+module.exports = app;
