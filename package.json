@@ -11,8 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "consign": "^0.1.6",
     "express": "^4.16.4",
-    "express-validator": "^5.3.1"
+    "mongodb": "^3.1.13"
   }
 }

@@ -1,21 +1,20 @@
-const express = require('express'),
-consign = require('consign'),
-bodyParser = require('body-parser'),
-expressValidator = require('express-validator');
+const express = require("express");
+const bodyParser = require('body-parser');
 
-var app = express();
+class AppController {
+  constructor() {
+    this.express = express();
+    this.middlewares();
+    this.routes();
+  }
 
+  middlewares() {
+    this.express.use(bodyParser.urlencoded({ extended: true }));
+  }
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+  routes() {
+    this.express.use(require("../app/routes/routes"));
+  }
+}
 
-app.use(expressValidator());
-
-consign()
-	.include('app/routes')
-	.then('app/models')
-	.then('app/controllers')
-	.into(app);
-
-
-module.exports = app;
+module.exports = new AppController().express;
