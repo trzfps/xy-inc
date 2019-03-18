@@ -27,6 +27,9 @@ class DestinationController {
        .then(result => {
            res.send(result)
        })
+       .catch(err => {
+           res.send(err)
+       })
     }
     POIsPorProximidade(req,res){
         let {cordX, cordY } = req.body;
